@@ -21,7 +21,7 @@ class RegisterUser : AppCompatActivity() {
     private lateinit var btnRegister: Button
     private lateinit var progressBar: ProgressBar
     lateinit var tvProfileName : TextView
-    lateinit var tvLogout : TextView
+    //lateinit var tvLogout : TextView
     private var allPairs = mutableListOf<String>()
 
     private val db = Firebase.firestore
@@ -42,8 +42,8 @@ class RegisterUser : AppCompatActivity() {
         btnRegister = findViewById(R.id.btnLogin)
         tvProfileName = findViewById(R.id.tvProfileName)
         tvProfileName.visibility = View.GONE
-        tvLogout = findViewById(R.id.tvLogout)
-        tvLogout.visibility = View.GONE
+        //tvLogout = findViewById(R.id.tvLogout)
+        //tvLogout.visibility = View.GONE
 
 //        tvBanner.setOnClickListener {
 //            val intent = Intent(this, MainActivity::class.java)

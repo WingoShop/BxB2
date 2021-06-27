@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -67,6 +68,16 @@ class Profile : AppCompatActivity() {
                         rvPair.adapter = adapterRV
                         rvPair.setHasFixedSize(true)
                         rvPair.layoutManager = LinearLayoutManager(this)
+                        val item= object : SwipeToDelete(this,0,ItemTouchHelper.RIGHT) {
+                            override fun onSwiped(
+                                viewHolder: RecyclerView.ViewHolder,
+                                direction: Int
+                            ) {
+                                deletePair(viewHolder.adapterPosition)
+                            }
+                        }
+                        val itemTouchHelper = ItemTouchHelper(item)
+                        itemTouchHelper.attachToRecyclerView(rvPair)
                     }
 
                     tvProfileName.text = currentName
@@ -161,6 +172,20 @@ class Profile : AppCompatActivity() {
                 }
 
 
+        }
+    }
+
+    private fun deletePair(adapterPosition: Int) {
+        if (allPairs.size == 1 ) {
+            Toast.makeText(this, "Must have at least one pair!", Toast.LENGTH_LONG).show()
+            return
+        }
+        else {
+            db.collection("user").document(uid).update(
+                "pairs", FieldValue.arrayRemove(allPairs[adapterPosition])
+            )
+            allPairs.removeAt(adapterPosition)
+            adapterRV.notifyDataSetChanged()
         }
     }
 }

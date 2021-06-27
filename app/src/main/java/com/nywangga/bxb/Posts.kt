@@ -37,7 +37,7 @@ class Posts : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var rvHistory: RecyclerView
     private var postHistoryList = mutableListOf<Post>()
     private var allDocs = mutableListOf<Post>()
-    private lateinit var tvLogout: TextView
+    private lateinit var tvTransactionHistoryShow: TextView
     private var realEmail: String = ""
     private lateinit var spinnerPair: Spinner
     private lateinit var adapterRV: PostHistoryAdapter
@@ -48,6 +48,7 @@ class Posts : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var adapterSpinner: ArrayAdapter<String>
     private lateinit var currentUser2: FirebaseUser
     private var newestPair =""
+    private var transactionHistoryFlag = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,7 @@ class Posts : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         tvBanner = findViewById(R.id.tvBannerHead)
         btnPaid = findViewById(R.id.btnPaid)
         rvHistory = findViewById(R.id.rvHistory)
-        tvLogout = findViewById(R.id.tvLogout)
+        tvTransactionHistoryShow = findViewById(R.id.tvTransactionHistoryShow)
         spinnerPair = findViewById(R.id.spinnerPair)
 
         tvProfileName = findViewById(R.id.tvProfileName)
@@ -94,7 +95,7 @@ class Posts : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     realPair = pair
                     oldPair = pair
 
-                    adapterRV = PostHistoryAdapter(this, postHistoryList)
+                    adapterRV = PostHistoryAdapter(this, postHistoryList,realEmail)
                     rvHistory.adapter = adapterRV
                     rvHistory.setHasFixedSize(true)
                     rvHistory.layoutManager = LinearLayoutManager(this)
@@ -103,32 +104,6 @@ class Posts : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
 
         btnPaid.setOnClickListener {
-            /*val documentList = listOf(realEmail, realPair).sorted()
-            val createdByReal = realEmail
-
-            email2 = documentList[0]
-            pair = documentList[1]
-            val uuid = UUID.randomUUID().toString()
-            var postDb = Post(email2,pair,firstDoc.balance,0,"Paid",createdBy)
-            db.collection("posts").document(uuid)
-                .set(postDb)
-                .addOnCompleteListener { toDbTask ->
-                    if (toDbTask.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            "Paid",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        progressBar.visibility = View.GONE
-                        val intent = Intent(this, Posts::class.java)
-                        startActivity(intent)
-
-                    } else {
-                        Toast.makeText(this, "Initialization failed! Try again!", Toast.LENGTH_LONG).show()
-                        progressBar.visibility = View.GONE
-
-                    }
-                }*/
             calculateBalance(false)
         }
 
@@ -139,11 +114,17 @@ class Posts : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             finish()
         }
 
-        tvLogout.setOnClickListener {
-            mAuth!!.signOut()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivityForResult(intent, 249)
-            finish()
+        tvTransactionHistoryShow.setOnClickListener {
+            if (transactionHistoryFlag) {
+                rvHistory.visibility = View.GONE
+                tvTransactionHistoryShow.text = "Transaction history: (show)"
+                transactionHistoryFlag = false
+            } else {
+                rvHistory.visibility = View.VISIBLE
+                tvTransactionHistoryShow.text = "Transaction history: (hide)"
+                transactionHistoryFlag = true
+            }
+
         }
 
 

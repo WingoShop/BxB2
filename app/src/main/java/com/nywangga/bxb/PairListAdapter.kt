@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class PairListAdapter(private val context: Context, private val allPairs: MutableList<String>) :
@@ -22,6 +23,20 @@ class PairListAdapter(private val context: Context, private val allPairs: Mutabl
     }
 
     override fun getItemCount() = allPairs.size
+
+
+    fun del(adapterPosition: Int) {
+        if (allPairs.size == 1 ) {
+            Toast.makeText(context, "Must have at least one pair!", Toast.LENGTH_LONG).show()
+            return
+        }
+        else {
+            allPairs.removeAt(adapterPosition)
+            Toast.makeText(context, "Removed, $allPairs", Toast.LENGTH_LONG).show()
+            notifyDataSetChanged()
+        }
+
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvPair = itemView.findViewById<TextView>(R.id.tvPair)

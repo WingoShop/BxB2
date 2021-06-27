@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var progressBar: ProgressBar
     lateinit var tvProfileName : TextView
-    lateinit var tvLogout : TextView
+    //lateinit var tvLogout : TextView
     private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         tvProfileName = findViewById(R.id.tvProfileName)
         tvProfileName.visibility = View.GONE
-        tvLogout = findViewById(R.id.tvLogout)
-        tvLogout.visibility = View.GONE
+        //tvLogout = findViewById(R.id.tvLogout)
+        //tvLogout.visibility = View.GONE
         register =findViewById(R.id.tvRegister)
         register.setOnClickListener {
             val intent = Intent(this, RegisterUser::class.java)

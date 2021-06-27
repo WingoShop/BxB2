@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".Posts">
 
+    <TextView
+        android:id="@+id/tvCurrentBalance2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:text="Current Balance:"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
     <include
         android:id="@+id/include"
         layout="@layout/header"
@@ -24,7 +39,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        android:textColor="?android:textColorPrimary"/>
+
+    <TextView
+        android:id="@+id/tvTransactionHistoryShow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Transaction history: (hide)"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPaid" />
 
     <EditText
         android:id="@+id/etAmount"
@@ -38,7 +69,8 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCurrentBalance" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentBalance"
+        android:textColor="?android:textColorPrimary"/>
 
     <EditText
         android:id="@+id/etRemark"
@@ -53,7 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPair" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPair"
+        android:textColor="?android:textColorPrimary"/>
 
     <Button
         android:id="@+id/btnPaid"
@@ -92,12 +125,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistory"
-        android:layout_width="409dp"
-        android:layout_height="236dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="413dp"
+        android:layout_height="304dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPaid" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTransactionHistoryShow" />
 
     <Spinner
         android:id="@+id/spinnerPair"
